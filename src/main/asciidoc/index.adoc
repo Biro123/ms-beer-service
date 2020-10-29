@@ -1,0 +1,25 @@
+= Beer Service Order Service Docs
+Brian Robson;
+:doctype: book
+:icons: font
+:source-highlighter: highlights
+
+Sample Beer Application using REST Docs with Junit5
+
+ControllerTest makes a call to a simple service and produces three
+documentation snippets:
+
+One showing how to make a request using cURL:
+include::{snippets}/orders/curl-request.adoc[]
+
+One showing the HTTP request:
+include::{snippets}/orders/http-request.adoc[]
+
+One showing the HTTP response:
+include::{snippets}/orders/http-response.adoc[]
+
+Response Body:
+include::{snippets}/orders/response-body.adoc[]
+
+Response Fields:
+include::{snippets}/orders/response-fields.adoc[]
