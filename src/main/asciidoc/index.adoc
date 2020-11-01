@@ -9,17 +9,40 @@ Sample Beer Application using REST Docs with Junit5
 ControllerTest makes a call to a simple service and produces three
 documentation snippets:
 
+GET BEER
+
 One showing how to make a request using cURL:
-include::{snippets}/v1/beer/curl-request.adoc[]
+include::{snippets}/v1/beer-get/curl-request.adoc[]
 
 One showing the HTTP request:
-include::{snippets}/v1/beer/http-request.adoc[]
+include::{snippets}/v1/beer-get/http-request.adoc[]
 
 One showing the HTTP response:
-include::{snippets}/v1/beer/http-response.adoc[]
+include::{snippets}/v1/beer-get/http-response.adoc[]
 
 Response Body:
-include::{snippets}/v1/beer/response-body.adoc[]
+include::{snippets}/v1/beer-get/response-body.adoc[]
 
 Response Fields:
-include::{snippets}/v1/beer/response-fields.adoc[]
+include::{snippets}/v1/beer-get/response-fields.adoc[]
+
+NEW BEER
+
+One showing how to make a request using cURL:
+include::{snippets}/v1/beer-new/curl-request.adoc[]
+
+One showing the HTTP request:
+include::{snippets}/v1/beer-new/http-request.adoc[]
+
+One showing the HTTP response:
+include::{snippets}/v1/beer-new/http-response.adoc[]
+
+Request Fields:
+include::{snippets}/v1/beer-new/request-fields.adoc[]
+
+Request Body Fields:
+include::{snippets}/v1/beer-new/request-body.adoc[]
+
+Response Body:
+include::{snippets}/v1/beer-new/response-body.adoc[]
+
