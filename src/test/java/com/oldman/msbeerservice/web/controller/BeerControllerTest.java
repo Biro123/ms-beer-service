@@ -1,8 +1,7 @@
 package com.oldman.msbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oldman.msbeerservice.domain.Beer;
-import com.oldman.msbeerservice.repositories.BeerRepository;
+import com.oldman.msbeerservice.services.BeerServiceImpl;
 import com.oldman.msbeerservice.web.model.BeerDto;
 import com.oldman.msbeerservice.web.model.BeerStyleEnum;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,7 +50,7 @@ class BeerControllerTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    BeerRepository beerRepository;
+    BeerServiceImpl beerService;
 
     BeerDto validBeer;
 
@@ -68,7 +66,8 @@ class BeerControllerTest {
 
     @Test
     void getBeerById() throws Exception {
-        given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
+
+        given(beerService.getById(any())).willReturn(BeerDto.builder().build());
 
         mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())
                 .accept(MediaType.APPLICATION_JSON))
