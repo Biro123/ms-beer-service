@@ -1,6 +1,7 @@
 package com.oldman.msbeerservice.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oldman.msbeerservice.bootstrap.BeerLoader;
 import com.oldman.msbeerservice.services.BeerServiceImpl;
 import com.oldman.msbeerservice.web.model.BeerDto;
 import com.oldman.msbeerservice.web.model.BeerStyleEnum;
@@ -59,15 +60,15 @@ class BeerControllerTest {
         validBeer = BeerDto.builder()
                 .beerName("BlackSheep")
                 .beerStyle(BeerStyleEnum.ALE)
-                .price(new BigDecimal(2.50))
-                .upc(1234567890L)
+                .price(new BigDecimal("2.50"))
+                .upc(BeerLoader.BEER_1_UPC)
                 .build();
     }
 
     @Test
     void getBeerById() throws Exception {
 
-        given(beerService.getById(any())).willReturn(BeerDto.builder().build());
+        given(beerService.getById(any())).willReturn(validBeer);
 
         mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())
                 .accept(MediaType.APPLICATION_JSON))
@@ -124,6 +125,7 @@ class BeerControllerTest {
 
     @Test
     void updateBeerById() throws Exception {
+        given(beerService.updateBeer(any(), any())).willReturn(validBeer);
 
         BeerDto beerDto = validBeer;
         String beerDtoJson = objectMapper.writeValueAsString(beerDto);
