@@ -43,7 +43,6 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
                         new ParameterizedTypeReference<List<BeerInventoryDto>>() {}, (Object) beerId);
 
         // sum from inventory list
-        System.out.println(responseEntity.getBody());
         Integer onHand = Objects.requireNonNull(responseEntity.getBody())
                 .stream()
                 .mapToInt(BeerInventoryDto::getQuantityOnHand)

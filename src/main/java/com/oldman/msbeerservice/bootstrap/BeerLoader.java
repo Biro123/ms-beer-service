@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  *  Class to create some initial data in the repository
  */
-@Component
+//@Component  removed to not execute. data.sql loads data instead
 public class BeerLoader implements CommandLineRunner {
 
     public static final String BEER_1_UPC = "0631234200036";
