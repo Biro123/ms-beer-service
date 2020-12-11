@@ -24,10 +24,10 @@ public class BeerController {
     private final BeerService beerService;
 
     @GetMapping(produces = { "application/json" })
-    public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber, required = false") Integer pageNumber,
-                                                   @RequestParam(value = "pageSize, required = false") Integer pageSize,
-                                                   @RequestParam(value = "beerName, required = false") String beerName,
-                                                   @RequestParam(value = "beerStyle, required = false") BeerStyleEnum beerStyle) {
+    public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
+                                                   @RequestParam(value = "pageSize", required = false) Integer pageSize,
+                                                   @RequestParam(value = "beerName", required = false) String beerName,
+                                                   @RequestParam(value = "beerStyle", required = false) BeerStyleEnum beerStyle) {
 
         if (pageNumber == null || pageNumber < 0) {
             pageNumber = DEFAULT_PAGE_NUMBER;
