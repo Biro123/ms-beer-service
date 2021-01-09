@@ -25,6 +25,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.BDDMockito.given;
 
 // IMPORTANT!! MockMVC requestBuilders must be replaced with RestDocs Builders !!
@@ -39,9 +40,9 @@ import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(RestDocumentationExtension.class)
-@AutoConfigureRestDocs(uriScheme = "https", uriHost = "dev.oldmangames.beer", uriPort = 80)
+@AutoConfigureRestDocs(uriScheme = "https", uriHost = "dev.oldman.beer", uriPort = 80)
 @WebMvcTest(BeerController.class)
-@ComponentScan(basePackages = "com.oldman.msbeerservice.web.mappers")
+//@ComponentScan(basePackages = "com.oldman.msbeerservice.web.mappers")
 class BeerControllerTest {
 
     @Autowired
@@ -68,7 +69,7 @@ class BeerControllerTest {
     @Test
     void getBeerById() throws Exception {
 
-        given(beerService.getById(any())).willReturn(validBeer);
+        given(beerService.getById(any(), anyBoolean())).willReturn(validBeer);
 
         mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())
                 .accept(MediaType.APPLICATION_JSON))
