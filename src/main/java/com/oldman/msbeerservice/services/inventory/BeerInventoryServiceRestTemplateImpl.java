@@ -1,6 +1,7 @@
 package com.oldman.msbeerservice.services.inventory;
 
 import com.oldman.msbeerservice.services.inventory.model.BeerInventoryDto;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -22,15 +23,12 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
     private static final String INVENTORY_PATH = "/api/v1/beer/{beerId}/inventory";
     private final RestTemplate restTemplate;
 
-    public void setBeerInventoryServiceHost(String beerInventoryServiceHost) {
-        this.beerInventoryServiceHost = beerInventoryServiceHost;
-    }
+    @Setter
+    private String beerInventoryServiceHost;
 
     public BeerInventoryServiceRestTemplateImpl(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplate = restTemplateBuilder.build();
     }
-
-    private String beerInventoryServiceHost;
 
 
     @Override
@@ -40,13 +38,12 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
 
         ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate
                 .exchange(beerInventoryServiceHost + INVENTORY_PATH, HttpMethod.GET, null,
-                        new ParameterizedTypeReference<List<BeerInventoryDto>>() {}, (Object) beerId);
+                        new ParameterizedTypeReference<List<BeerInventoryDto>>() {}, beerId);
 
         // sum from inventory list
-        Integer onHand = Objects.requireNonNull(responseEntity.getBody())
+        return Objects.requireNonNull(responseEntity.getBody())
                 .stream()
                 .mapToInt(BeerInventoryDto::getQuantityOnHand)
                 .sum();
-        return onHand;
     }
 }
