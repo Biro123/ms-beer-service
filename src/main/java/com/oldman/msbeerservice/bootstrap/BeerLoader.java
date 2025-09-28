@@ -2,30 +2,27 @@ package com.oldman.msbeerservice.bootstrap;
 
 import com.oldman.msbeerservice.domain.Beer;
 import com.oldman.msbeerservice.repositories.BeerRepository;
+import com.oldman.msbeerservice.web.model.BeerStyleEnum;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 /**
  *  Class to create some initial data in the repository
  */
-//@Component  removed to not execute. data.sql loads data instead
+@Slf4j
+@RequiredArgsConstructor
+@Component
 public class BeerLoader implements CommandLineRunner {
 
     public static final String BEER_1_UPC = "0631234200036";
     public static final String BEER_2_UPC = "0631234300019";
     public static final String BEER_3_UPC = "0083783375213";
-    public static final UUID BEER_1_UUID = UUID.fromString("0a818933-087d-47f2-ad83-2f986ed087eb");
-    public static final UUID BEER_2_UUID = UUID.fromString("a712d914-61ea-4623-8bd0-32c0f6545bfd");
-    public static final UUID BEER_3_UUID = UUID.fromString("026cc3c8-3a0c-4083-a05b-e908048c1b08");
 
     private final BeerRepository beerRepository;
-
-    public BeerLoader(BeerRepository beerRepository) {
-        this.beerRepository = beerRepository;
-    }
 
     @Override
     public void run(String... args) throws Exception {
@@ -37,7 +34,7 @@ public class BeerLoader implements CommandLineRunner {
 
             beerRepository.save(Beer.builder()
                     .beerName("Black Sheep")
-                    .beerStyle("ALE")
+                    .beerStyle(BeerStyleEnum.ALE.name())
                     .quantityToBrew(200)
                     .minOnHand(12)
                     .upc(BEER_1_UPC)
@@ -46,7 +43,7 @@ public class BeerLoader implements CommandLineRunner {
 
             beerRepository.save(Beer.builder()
                     .beerName("Shipyard")
-                    .beerStyle("IPA")
+                    .beerStyle(BeerStyleEnum.IPA.name())
                     .quantityToBrew(100)
                     .minOnHand(12)
                     .upc(BEER_2_UPC)
@@ -55,14 +52,15 @@ public class BeerLoader implements CommandLineRunner {
 
             beerRepository.save(Beer.builder()
                     .beerName("XB")
-                    .beerStyle("ALE")
+                    .beerStyle(BeerStyleEnum.ALE.name())
                     .quantityToBrew(80)
                     .minOnHand(19)
                     .upc(BEER_3_UPC)
                     .price(new BigDecimal("3.05"))
                     .build());
+
+            log.info("Pre-Loaded Beers: {}", beerRepository.count());
         }
 
-        System.out.println("Loaded Beers: " + beerRepository.count());
     }
 }
